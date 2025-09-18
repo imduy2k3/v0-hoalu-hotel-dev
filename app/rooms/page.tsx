@@ -2,6 +2,7 @@ import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 import { RoomsFilter } from "@/components/rooms/rooms-filter"
 import { RoomsGrid } from "@/components/rooms/rooms-grid"
+import { roomTypes } from "@/lib/client-data"
 
 export default function RoomsPage() {
   return (
@@ -32,7 +33,7 @@ export default function RoomsPage() {
 
               {/* Rooms Grid */}
               <div className="lg:col-span-3">
-                <RoomsGrid />
+                <RoomsGrid roomTypes={roomTypes} />
               </div>
             </div>
           </div>

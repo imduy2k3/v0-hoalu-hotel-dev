@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/sections/hero-section"
 import { IntroSection } from "@/components/sections/intro-section"
 import { FeaturedRoomsSection } from "@/components/sections/featured-rooms-section"
 import { AmenitiesSection } from "@/components/sections/amenities-section"
+import { GallerySection } from "@/components/sections/gallery-section"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { CtaSection } from "@/components/sections/cta-section"
 
@@ -16,6 +17,7 @@ export default function HomePage() {
         <IntroSection />
         <FeaturedRoomsSection />
         <AmenitiesSection />
+        <GallerySection />
         <TestimonialsSection />
         <CtaSection />
       </main>

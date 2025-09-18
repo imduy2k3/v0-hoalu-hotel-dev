@@ -4,7 +4,7 @@ import { useState } from "react"
 import { AdminLayout } from "@/components/admin/admin-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { customers, bookings } from "@/lib/data"
+import { customers, bookings } from "@/lib/client-data"
 import { Search, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
 

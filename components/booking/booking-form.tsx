@@ -15,7 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon, Minus, Plus } from "lucide-react"
 import { format, differenceInDays } from "date-fns"
 import { vi } from "date-fns/locale"
-import { roomTypes } from "@/lib/data"
+import { roomTypes } from "@/lib/client-data"
 import { BookingSummary } from "./booking-summary"
 import { cn } from "@/lib/utils"
 

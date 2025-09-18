@@ -5,7 +5,7 @@ export function AboutHero() {
     <section className="relative h-96 flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <Image src="/images/hotel-exterior.jpg" alt="Hoa Lư City Hotel" fill className="object-cover" />
+        <Image src="/images/reception.jpg" alt="Hoa Lư City Hotel Reception" fill className="object-cover" />
         <div className="absolute inset-0 bg-black/50" />
       </div>
 

@@ -4,7 +4,8 @@ import { Footer } from "@/components/ui/footer"
 import { RoomGallery } from "@/components/rooms/room-gallery"
 import { RoomDetails } from "@/components/rooms/room-details"
 import { RoomBookingCard } from "@/components/rooms/room-booking-card"
-import { roomTypes } from "@/lib/data"
+
+import { roomTypes } from "@/lib/client-data"
 
 interface RoomPageProps {
   params: {

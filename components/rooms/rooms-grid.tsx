@@ -3,11 +3,15 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { roomTypes } from "@/lib/data"
 import { amenityLabels, amenityIcons } from "@/lib/amenities"
 import { Users, Maximize } from "lucide-react"
+import type { RoomType } from "@/lib/types"
 
-export function RoomsGrid() {
+interface RoomsGridProps {
+  roomTypes: RoomType[]
+}
+
+export function RoomsGrid({ roomTypes }: RoomsGridProps) {
   const publishedRooms = roomTypes.filter((room) => room.isPublished)
 
   return (

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { RoomDialog } from "@/components/admin/room-dialog"
-import { rooms, roomTypes } from "@/lib/data"
+import { rooms, roomTypes } from "@/lib/client-data"
 import { Plus, Search, Edit, Trash2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 

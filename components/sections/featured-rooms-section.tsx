@@ -2,11 +2,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { roomTypes } from "@/lib/data"
 import { amenityLabels, amenityIcons } from "@/lib/amenities"
+import { roomTypes } from "@/lib/client-data"
+
+// Get first 3 rooms as featured rooms
+const featuredRooms = roomTypes.slice(0, 3)
 
 export function FeaturedRoomsSection() {
-  const featuredRooms = roomTypes.filter((room) => room.isPublished).slice(0, 3)
 
   return (
     <section className="py-16 lg:py-24 bg-hotel-gray">

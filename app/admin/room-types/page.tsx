@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { RoomTypeDialog } from "@/components/admin/room-type-dialog"
-import { roomTypes } from "@/lib/data"
+import { roomTypes } from "@/lib/client-data"
 import { Plus, Search, Edit, Trash2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 

@@ -9,6 +9,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  env: {
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
+  experimental: {
+    serverComponentsExternalPackages: ['pg'],
+  },
 }
 
 export default nextConfig
