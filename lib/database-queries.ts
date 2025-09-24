@@ -16,14 +16,13 @@ import type {
 export const getRoomTypes = async (): Promise<DatabaseRoomType[]> => {
   const result = await query(`
     SELECT * FROM room_types 
-    WHERE is_active = true 
     ORDER BY base_price ASC
   `)
   return result.rows
 }
 
 export const getRoomTypeById = async (id: number): Promise<DatabaseRoomType | null> => {
-  const result = await query('SELECT * FROM room_types WHERE id = $1 AND is_active = true', [id])
+  const result = await query('SELECT * FROM room_types WHERE id = $1', [id])
   return result.rows[0] || null
 }
 
@@ -31,8 +30,74 @@ export const getRoomTypeBySlug = async (slug: string): Promise<DatabaseRoomType 
   // Since the database doesn't have a slug field, we'll use name matching
   const result = await query(`
     SELECT * FROM room_types 
-    WHERE LOWER(REPLACE(name, ' ', '-')) = $1 AND is_active = true
+    WHERE LOWER(REPLACE(name, ' ', '-')) = $1
   `, [slug])
+  return result.rows[0] || null
+}
+
+export const updateRoomType = async (id: number, data: Partial<DatabaseRoomType>): Promise<DatabaseRoomType | null> => {
+  const {
+    name,
+    base_price,
+    max_guests,
+    size_sqm,
+    bed_type,
+    description,
+    amenities,
+    images
+  } = data
+
+  console.log('updateRoomType called with:', { id, data })
+
+  // Handle images - could be array or string
+  let imagesValue = null
+  if (images) {
+    if (Array.isArray(images)) {
+      imagesValue = JSON.stringify(images)
+    } else if (typeof images === 'string') {
+      imagesValue = images
+    }
+  }
+
+  // Handle amenities - could be array or string
+  let amenitiesValue = null
+  if (amenities) {
+    if (Array.isArray(amenities)) {
+      amenitiesValue = JSON.stringify(amenities)
+    } else if (typeof amenities === 'string') {
+      amenitiesValue = amenities
+    }
+  }
+
+  console.log('Processed values:', { imagesValue, amenitiesValue })
+
+  const result = await query(`
+    UPDATE room_types 
+    SET 
+      name = COALESCE($2, name),
+      base_price = COALESCE($3, base_price),
+      max_guests = COALESCE($4, max_guests),
+      size_sqm = COALESCE($5, size_sqm),
+      bed_type = COALESCE($6, bed_type),
+      description = COALESCE($7, description),
+      amenities = COALESCE($8, amenities),
+      images = COALESCE($9, images),
+      updated_at = NOW()
+    WHERE id = $1
+    RETURNING *
+  `, [
+    id,
+    name,
+    base_price,
+    max_guests,
+    size_sqm,
+    bed_type,
+    description,
+    amenitiesValue,
+    imagesValue
+  ])
+  
+  console.log('Update result:', result.rows[0])
   return result.rows[0] || null
 }
 
@@ -58,21 +123,17 @@ export const getRoomsByType = async (roomTypeId: number): Promise<DatabaseRoom[]
 
 export const getAvailableRooms = async (checkIn: string, checkOut: string, roomTypeId?: number): Promise<DatabaseRoom[]> => {
   let queryText = `
-    SELECT DISTINCT r.* 
+    SELECT r.id, r.room_number, r.room_type_id, r.floor, r.status, 
+           r.view_type, r.special_features, r.last_maintenance, 
+           r.created_at, r.updated_at, r.image_url
     FROM rooms r
     WHERE r.status = 'available'
-    AND r.id NOT IN (
-      SELECT ra.room_id 
-      FROM room_assignments ra
-      WHERE (ra.check_in_date <= $2 AND ra.check_out_date >= $1)
-      AND ra.status IN ('assigned', 'checked_in')
-    )
   `
   
-  const params = [checkIn, checkOut]
+  const params = []
   
   if (roomTypeId) {
-    queryText += ' AND r.room_type_id = $3'
+    queryText += ' AND r.room_type_id = $1'
     params.push(roomTypeId.toString())
   }
   
@@ -152,8 +213,15 @@ export const getBookingByReference = async (reference: string): Promise<Database
 }
 
 export const createBooking = async (booking: Partial<DatabaseBooking>): Promise<DatabaseBooking> => {
-  // Generate booking reference
-  const bookingRef = `BK${new Date().getFullYear()}${String(Date.now()).slice(-6)}`
+  // Generate booking reference in format HLB-ddmmyyhhmmss
+  const now = new Date()
+  const day = String(now.getDate()).padStart(2, '0')
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const year = String(now.getFullYear()).slice(-2)
+  const hour = String(now.getHours()).padStart(2, '0')
+  const minute = String(now.getMinutes()).padStart(2, '0')
+  const second = String(now.getSeconds()).padStart(2, '0')
+  const bookingRef = `HLB-${day}${month}${year}${hour}${minute}${second}`
   
   const result = await query(`
     INSERT INTO bookings (

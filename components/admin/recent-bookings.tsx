@@ -14,95 +14,26 @@ export function RecentBookings() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // For now, use mock data until we implement the API endpoints
-        setBookings([
-          {
-            id: "BK2024001",
-            customerId: "1",
-            checkIn: "2024-03-20T14:00:00Z",
-            checkOut: "2024-03-22T12:00:00Z",
-            nights: 2,
-            roomTypeId: "2",
-            roomsCount: 1,
-            guestsAdult: 2,
-            guestsChild: 0,
-            totalAmount: 2400000,
-            status: "Confirmed",
-            createdAt: "2024-03-10T14:30:00Z",
-            updatedAt: "2024-03-10T14:30:00Z",
-          },
-          {
-            id: "BK2024002",
-            customerId: "2",
-            checkIn: "2024-03-25T14:00:00Z",
-            checkOut: "2024-03-27T12:00:00Z",
-            nights: 2,
-            roomTypeId: "1",
-            roomsCount: 1,
-            guestsAdult: 2,
-            guestsChild: 0,
-            totalAmount: 1600000,
-            status: "New",
-            createdAt: "2024-03-15T16:45:00Z",
-            updatedAt: "2024-03-15T16:45:00Z",
-          }
-        ])
+        // Fetch recent bookings
+        const bookingsResponse = await fetch('/api/bookings')
+        if (bookingsResponse.ok) {
+          const bookingsData = await bookingsResponse.json()
+          setBookings(bookingsData.slice(0, 5)) // Get only 5 most recent
+        }
         
-        setCustomers([
-          {
-            id: "1",
-            fullName: "Nguyễn Văn An",
-            email: "nguyenvanan@email.com",
-            phone: "0901234567",
-            createdAt: "2024-01-15T10:00:00Z",
-            lastBookingAt: "2024-03-10T14:30:00Z",
-            totalSpent: 2400000,
-          },
-          {
-            id: "2",
-            fullName: "Trần Thị Bình",
-            email: "tranthibinh@email.com",
-            phone: "0912345678",
-            createdAt: "2024-02-20T09:15:00Z",
-            lastBookingAt: "2024-03-15T16:45:00Z",
-            totalSpent: 1600000,
-          }
-        ])
+        // Fetch customers
+        const customersResponse = await fetch('/api/customers')
+        if (customersResponse.ok) {
+          const customersData = await customersResponse.json()
+          setCustomers(customersData)
+        }
         
-        setRoomTypes([
-          {
-            id: "1",
-            name: "Standard",
-            slug: "standard",
-            basePrice: 800000,
-            capacity: 2,
-            sizeSqm: 25,
-            bedType: "Twin",
-            shortDesc: "Phòng tiêu chuẩn",
-            longDesc: "Phòng tiêu chuẩn với đầy đủ tiện nghi",
-            amenities: ["wifi", "breakfast"],
-            policies: "Hủy miễn phí 48h trước check-in",
-            images: ["/placeholder.svg"],
-            isPublished: true,
-            updatedAt: new Date().toISOString(),
-          },
-          {
-            id: "2",
-            name: "Deluxe",
-            slug: "deluxe",
-            basePrice: 1200000,
-            capacity: 3,
-            sizeSqm: 35,
-            bedType: "Queen",
-            shortDesc: "Phòng cao cấp",
-            longDesc: "Phòng cao cấp với không gian rộng rãi",
-            amenities: ["wifi", "breakfast", "pool"],
-            policies: "Hủy miễn phí 48h trước check-in",
-            images: ["/placeholder.svg"],
-            isPublished: true,
-            updatedAt: new Date().toISOString(),
-          }
-        ])
+        // Fetch room types
+        const roomTypesResponse = await fetch('/api/room-types')
+        if (roomTypesResponse.ok) {
+          const roomTypesData = await roomTypesResponse.json()
+          setRoomTypes(roomTypesData)
+        }
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {
@@ -117,32 +48,23 @@ export function RecentBookings() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "New":
+      case "Chờ xác nhận":
         return "bg-blue-100 text-blue-800"
-      case "Confirmed":
+      case "Đã xác nhận":
         return "bg-green-100 text-green-800"
-      case "Cancelled":
-        return "bg-red-100 text-red-800"
-      case "Completed":
+      case "Đã nhận phòng":
+        return "bg-purple-100 text-purple-800"
+      case "Hoàn thành":
         return "bg-gray-100 text-gray-800"
+      case "Đã hủy":
+        return "bg-red-100 text-red-800"
       default:
         return "bg-gray-100 text-gray-800"
     }
   }
 
   const getStatusText = (status: string) => {
-    switch (status) {
-      case "New":
-        return "Mới"
-      case "Confirmed":
-        return "Đã xác nhận"
-      case "Cancelled":
-        return "Đã hủy"
-      case "Completed":
-        return "Hoàn tất"
-      default:
-        return status
-    }
+    return status // Status is already in Vietnamese from database
   }
 
   if (loading) {

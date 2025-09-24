@@ -4,7 +4,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, Bed, Building, Calendar, Users, BarChart3, Settings } from "lucide-react"
+import { LayoutDashboard, Bed, Building, Calendar, Users, Settings, UserCog } from "lucide-react"
+import { PermissionGuard } from "./permission-guard"
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -12,7 +13,7 @@ const navigation = [
   { name: "Phòng", href: "/admin/rooms", icon: Building },
   { name: "Đơn đặt phòng", href: "/admin/bookings", icon: Calendar },
   { name: "Khách hàng", href: "/admin/customers", icon: Users },
-  { name: "Thống kê", href: "/admin/reports", icon: BarChart3 },
+  { name: "Tài khoản", href: "/admin/users", icon: UserCog, adminOnly: true },
   { name: "Cài đặt", href: "/admin/settings", icon: Settings },
 ]
 
@@ -29,16 +30,31 @@ export function AdminSidebar() {
         <ul className="space-y-1">
           {navigation.map((item) => (
             <li key={item.name}>
-              <Link
-                href={item.href}
-                className={cn(
-                  "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
-                  pathname === item.href ? "bg-hotel-gold text-white" : "text-gray-700 hover:bg-gray-100",
-                )}
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                {item.name}
-              </Link>
+              {item.adminOnly ? (
+                <PermissionGuard requiredRole="admin">
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                      pathname === item.href ? "bg-hotel-gold text-white" : "text-gray-700 hover:bg-gray-100",
+                    )}
+                  >
+                    <item.icon className="mr-3 h-5 w-5" />
+                    {item.name}
+                  </Link>
+                </PermissionGuard>
+              ) : (
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                    pathname === item.href ? "bg-hotel-gold text-white" : "text-gray-700 hover:bg-gray-100",
+                  )}
+                >
+                  <item.icon className="mr-3 h-5 w-5" />
+                  {item.name}
+                </Link>
+              )}
             </li>
           ))}
         </ul>

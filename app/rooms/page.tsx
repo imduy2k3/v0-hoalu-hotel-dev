@@ -1,8 +1,7 @@
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
-import { RoomsFilter } from "@/components/rooms/rooms-filter"
-import { RoomsGrid } from "@/components/rooms/rooms-grid"
-import { roomTypes } from "@/lib/client-data"
+import { RoomsDataProvider } from "@/components/rooms/rooms-data-provider"
+import { roomTypes as fallbackRoomTypes } from "@/lib/client-data"
 
 export default function RoomsPage() {
   return (
@@ -25,17 +24,8 @@ export default function RoomsPage() {
         {/* Rooms Content */}
         <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-              {/* Filters Sidebar */}
-              <div className="lg:col-span-1">
-                <RoomsFilter />
-              </div>
-
-              {/* Rooms Grid */}
-              <div className="lg:col-span-3">
-                <RoomsGrid roomTypes={roomTypes} />
-              </div>
-            </div>
+            {/* Rooms Grid - Full Width */}
+            <RoomsDataProvider initialRoomTypes={fallbackRoomTypes} />
           </div>
         </section>
       </main>

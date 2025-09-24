@@ -1,0 +1,116 @@
+﻿[
+    {
+        "id":  "1",
+        "name":  "PhÃ²ng Standard",
+        "slug":  "phng-standard",
+        "basePrice":  1800000,
+        "capacity":  1,
+        "sizeSqm":  35,
+        "bedType":  "2 Twin Beds",
+        "shortDesc":  "Standard room with basic amenities",
+        "longDesc":  "Standard room with basic amenities",
+        "amenities":  [
+                          "Free WiFi",
+                          "Air Conditioning"
+                      ],
+        "policies":  "Há»§y miá»\u0085n phÃ­ 48h trÆ°á»c check-in. Check-in 14:00, Check-out 12:00.",
+        "images":  [
+                       "/images/room-3.jpg"
+                   ],
+        "isPublished":  true,
+        "updatedAt":  "2025-09-18T03:05:44.985Z"
+    },
+    {
+        "id":  "3",
+        "name":  "PhÃ²ng Twin Superior",
+        "slug":  "phng-twin-superior",
+        "basePrice":  2300000,
+        "capacity":  2,
+        "sizeSqm":  40,
+        "bedType":  "2 Twin Beds",
+        "shortDesc":  "PhÃ²ng twin bed cao cáº¥p vá»i thiáº¿t káº¿ hiá»n Äáº¡i",
+        "longDesc":  "PhÃ²ng twin bed cao cáº¥p vá»i thiáº¿t káº¿ hiá»n Äáº¡i",
+        "amenities":  [
+                          "Free WiFi",
+                          "Air Conditioning",
+                          "Mini Bar",
+                          "Safe Box",
+                          "Smart TV",
+                          "Premium Linens",
+                          "Desk"
+                      ],
+        "policies":  "Há»§y miá»\u0085n phÃ­ 48h trÆ°á»c check-in. Check-in 14:00, Check-out 12:00.",
+        "images":  [
+                       "images\\room-2.jpg"
+                   ],
+        "isPublished":  true,
+        "updatedAt":  "2025-09-18T03:05:45.015Z"
+    },
+    {
+        "id":  "2",
+        "name":  "PhÃ²ng Deluxe",
+        "slug":  "phng-deluxe",
+        "basePrice":  2500000,
+        "capacity":  2,
+        "sizeSqm":  45,
+        "bedType":  "1 King Bed",
+        "shortDesc":  "Standard room with basic amenities",
+        "longDesc":  "Standard room with basic amenities",
+        "amenities":  [
+                          "Free WiFi",
+                          "Air Conditioning",
+                          "Mini Bar"
+                      ],
+        "policies":  "Há»§y miá»\u0085n phÃ­ 48h trÆ°á»c check-in. Check-in 14:00, Check-out 12:00.",
+        "images":  "images\\deluxe-twin-1.jpg",
+        "isPublished":  true,
+        "updatedAt":  "2025-09-18T03:05:45.006Z"
+    },
+    {
+        "id":  "4",
+        "name":  "PhÃ²ng Executive Suite",
+        "slug":  "phng-executive-suite",
+        "basePrice":  4200000,
+        "capacity":  2,
+        "sizeSqm":  75,
+        "bedType":  "1 King Bed + Sofa Bed",
+        "shortDesc":  "Suite cao cáº¥p vá»i phÃ²ng khÃ¡ch riÃªng biá»t",
+        "longDesc":  "Suite cao cáº¥p vá»i phÃ²ng khÃ¡ch riÃªng biá»t",
+        "amenities":  [
+                          "Free WiFi",
+                          "Living Room",
+                          "Kitchenette",
+                          "Premium Amenities",
+                          "Smart TV",
+                          "Marble Reception Access"
+                      ],
+        "policies":  "Há»§y miá»\u0085n phÃ­ 48h trÆ°á»c check-in. Check-in 14:00, Check-out 12:00.",
+        "images":  [
+                       "images\\room-2.jpg"
+                   ],
+        "isPublished":  true,
+        "updatedAt":  "2025-09-18T03:05:45.022Z"
+    },
+    {
+        "id":  "15",
+        "name":  "PhÃ²ng Test Exclusive Room",
+        "slug":  "phng-test-exclusive-room",
+        "basePrice":  9900000,
+        "capacity":  2,
+        "sizeSqm":  0,
+        "bedType":  "Twin",
+        "shortDesc":  "BÃ¹m",
+        "longDesc":  "BÃ¹m",
+        "amenities":  [
+                          "123",
+                          "Bathtub",
+                          "Shower"
+                      ],
+        "policies":  "Há»§y miá»\u0085n phÃ­ 48h trÆ°á»c check-in. Check-in 14:00, Check-out 12:00.",
+        "images":  [
+                       "https://i.ytimg.com/vi/1qQICXfR5VA/hqdefault.jpg"
+                   ],
+        "isPublished":  true,
+        "updatedAt":  "2025-09-12T08:04:18.981Z"
+    }
+]

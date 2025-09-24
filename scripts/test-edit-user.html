@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Edit User</title>
+</head>
+<body>
+    <h1>Test Edit User API</h1>
+    <button onclick="testEditUser()">Test Edit User</button>
+    <div id="result"></div>
+
+    <script>
+        async function testEditUser() {
+            const resultDiv = document.getElementById('result')
+            
+            try {
+                console.log('🔍 Testing edit user...')
+                
+                const updateData = {
+                    username: 'admin',
+                    email: 'admin@hoalucity.com',
+                    fullName: 'Quản trị viên Updated',
+                    role: 'admin',
+                    password: 'newpassword123',
+                    isActive: true
+                }
+                
+                const response = await fetch('/api/users/1', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updateData)
+                })
+                
+                const data = await response.json()
+                
+                resultDiv.innerHTML = `
+                    <h3>Response Status: ${response.status}</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `
+                
+                console.log('Response:', data)
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`
+                console.error('Error:', error)
+            }
+        }
+    </script>
+</body>
+</html>

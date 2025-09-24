@@ -26,7 +26,7 @@ export interface RoomType {
   updatedAt: string // ISO
 }
 
-export type RoomStatus = "Vacant" | "Occupied" | "Maintenance" | "Locked"
+export type RoomStatus = "Khả dụng" | "Đang sử dụng" | "Đang bảo trì"
 
 export interface Room {
   id: string
@@ -38,7 +38,21 @@ export interface Room {
   updatedAt: string
 }
 
-export type BookingStatus = "New" | "Confirmed" | "Cancelled" | "Completed"
+export type BookingStatus = "Chờ xác nhận" | "Đã xác nhận" | "Đã nhận phòng" | "Hoàn thành" | "Đã hủy"
+
+export type UserRole = "admin" | "manager"
+
+export interface User {
+  id: string
+  username: string
+  email: string
+  fullName: string
+  role: UserRole
+  isActive: boolean
+  createdAt: string
+  updatedAt: string
+  lastLoginAt?: string
+}
 
 export interface Booking {
   id: string // code

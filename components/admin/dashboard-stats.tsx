@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { TrendingUp, Calendar, Percent, Users } from "lucide-react"
 import { useEffect, useState } from "react"
 
@@ -19,27 +20,45 @@ export function DashboardStats() {
     newCustomers: 0
   })
   const [loading, setLoading] = useState(true)
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    const now = new Date()
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
+  })
 
   useEffect(() => {
     // Fetch dashboard stats from API
     const fetchStats = async () => {
       try {
-        // For now, use mock data until we implement the API endpoints
-        setStats({
-          monthlyRevenue: 125500000,
-          newBookings: 48,
-          occupancyRate: 78,
-          newCustomers: 32
-        })
+        setLoading(true)
+        const response = await fetch(`/api/dashboard/stats?month=${selectedMonth}`)
+        if (response.ok) {
+          const data = await response.json()
+          setStats(data)
+        } else {
+          // Fallback to mock data if API fails
+          setStats({
+            monthlyRevenue: 0,
+            newBookings: 0,
+            occupancyRate: 0,
+            newCustomers: 0
+          })
+        }
       } catch (error) {
         console.error('Error fetching dashboard stats:', error)
+        // Fallback to mock data on error
+        setStats({
+          monthlyRevenue: 0,
+          newBookings: 0,
+          occupancyRate: 0,
+          newCustomers: 0
+        })
       } finally {
         setLoading(false)
       }
     }
 
     fetchStats()
-  }, [])
+  }, [selectedMonth])
 
   if (loading) {
     return (
@@ -90,22 +109,58 @@ export function DashboardStats() {
       icon: Users,
     },
   ]
+  // Generate month options (last 12 months)
+  const generateMonthOptions = () => {
+    const options = []
+    const now = new Date()
+    for (let i = 0; i < 12; i++) {
+      const date = new Date(now.getFullYear(), now.getMonth() - i, 1)
+      const value = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
+      const label = date.toLocaleDateString('vi-VN', { year: 'numeric', month: 'long' })
+      options.push({ value, label })
+    }
+    return options
+  }
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {statsData.map((stat) => (
-        <Card key={stat.title}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">{stat.title}</CardTitle>
-            <stat.icon className="h-4 w-4 text-hotel-gold" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stat.value}</div>
-            <p className={`text-xs ${stat.changeType === "increase" ? "text-green-600" : "text-red-600"}`}>
-              {stat.change} so với tháng trước
-            </p>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="space-y-6">
+      {/* Month Filter */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-gray-900">Thống kê theo tháng</h2>
+        <div className="flex items-center space-x-2">
+          <label className="text-sm font-medium text-gray-700">Tháng:</label>
+          <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+            <SelectTrigger className="w-48">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {generateMonthOptions().map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {statsData.map((stat) => (
+          <Card key={stat.title}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600">{stat.title}</CardTitle>
+              <stat.icon className="h-4 w-4 text-hotel-gold" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stat.value}</div>
+              <p className={`text-xs ${stat.changeType === "increase" ? "text-green-600" : "text-red-600"}`}>
+                {stat.change} so với tháng trước
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   )
 }

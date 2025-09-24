@@ -3,12 +3,15 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { amenityLabels, amenityIcons } from "@/lib/amenities"
-import { roomTypes } from "@/lib/client-data"
+import { RoomType } from "@/lib/types"
 
-// Get first 3 rooms as featured rooms
-const featuredRooms = roomTypes.slice(0, 3)
+interface FeaturedRoomsSectionProps {
+  roomTypes: RoomType[]
+}
 
-export function FeaturedRoomsSection() {
+export function FeaturedRoomsSection({ roomTypes }: FeaturedRoomsSectionProps) {
+  // Get first 3 rooms as featured rooms
+  const featuredRooms = roomTypes.slice(0, 3)
 
   return (
     <section className="py-16 lg:py-24 bg-hotel-gray">
@@ -27,7 +30,7 @@ export function FeaturedRoomsSection() {
                 <Image src={room.images[0] || "/placeholder.svg"} alt={room.name} fill className="object-cover" />
               </div>
               <CardContent className="p-6">
-                <h3 className="font-serif text-xl font-semibold text-hotel-black mb-2">Phòng {room.name}</h3>
+                <h3 className="font-serif text-xl font-semibold text-hotel-black mb-2">{room.name}</h3>
                 <p className="text-gray-600 mb-4 line-clamp-2">{room.shortDesc}</p>
 
                 <div className="flex flex-wrap gap-2 mb-4">

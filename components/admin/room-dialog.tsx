@@ -10,22 +10,23 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
-import { roomTypes } from "@/lib/client-data"
-import type { Room } from "@/lib/types"
+import type { Room, RoomType } from "@/lib/types"
 
 interface RoomDialogProps {
   isOpen: boolean
   onClose: () => void
   room?: Room | null
+  onSave?: (room: Room) => void
+  roomTypes?: RoomType[]
 }
 
-export function RoomDialog({ isOpen, onClose, room }: RoomDialogProps) {
+export function RoomDialog({ isOpen, onClose, room, onSave, roomTypes = [] }: RoomDialogProps) {
   const { toast } = useToast()
   const [formData, setFormData] = useState({
     roomNumber: "",
     floor: "",
     roomTypeId: "",
-    status: "Vacant",
+    status: "Khả dụng",
     notes: "",
   })
 
@@ -43,21 +44,58 @@ export function RoomDialog({ isOpen, onClose, room }: RoomDialogProps) {
         roomNumber: "",
         floor: "",
         roomTypeId: "",
-        status: "Vacant",
+        status: "Khả dụng",
         notes: "",
       })
     }
   }, [room])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    toast({
-      title: room ? "Đã cập nhật phòng" : "Đã tạo phòng mới",
-      description: "Thông tin phòng đã được lưu thành công",
-    })
+    try {
+      const roomData = {
+        roomNumber: formData.roomNumber,
+        floor: parseInt(formData.floor) || 1,
+        roomTypeId: formData.roomTypeId,
+        status: formData.status as "Khả dụng" | "Đang sử dụng" | "Đang bảo trì",
+        notes: formData.notes || undefined
+      }
 
-    onClose()
+      const url = room ? `/api/rooms/${room.id}` : '/api/rooms'
+      const method = room ? 'PUT' : 'POST'
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(roomData),
+      })
+
+      if (response.ok) {
+        const savedRoom = await response.json()
+        toast({
+          title: room ? "Đã cập nhật phòng" : "Đã tạo phòng mới",
+          description: "Thông tin phòng đã được lưu thành công",
+        })
+        
+        if (onSave) {
+          onSave(savedRoom)
+        }
+        onClose()
+      } else {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to save room')
+      }
+    } catch (error) {
+      console.error('Error saving room:', error)
+      toast({
+        title: "Lỗi",
+        description: error instanceof Error ? error.message : "Không thể lưu phòng",
+        variant: "destructive"
+      })
+    }
   }
 
   return (
@@ -119,10 +157,9 @@ export function RoomDialog({ isOpen, onClose, room }: RoomDialogProps) {
                 <SelectValue placeholder="Chọn trạng thái" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Vacant">Trống</SelectItem>
-                <SelectItem value="Occupied">Đang ở</SelectItem>
-                <SelectItem value="Maintenance">Bảo trì</SelectItem>
-                <SelectItem value="Locked">Khóa</SelectItem>
+                <SelectItem value="Khả dụng">Khả dụng</SelectItem>
+                <SelectItem value="Đang sử dụng">Đang sử dụng</SelectItem>
+                <SelectItem value="Đang bảo trì">Đang bảo trì</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -1,19 +1,19 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import type { User, UserRole } from "./types"
 
-export interface User {
-  id: string
-  email: string
-  role: "Owner" | "Staff"
-  fullName: string
-}
-
+// This will be replaced with actual database data
 const DEMO_USER: User = {
   id: "1",
-  email: "owner@hoalu.vn",
-  role: "Owner",
-  fullName: "Nguyễn Văn Admin",
+  username: "admin",
+  email: "admin@hoalucity.com",
+  fullName: "Quản trị viên",
+  role: "admin",
+  isActive: true,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  lastLoginAt: new Date().toISOString()
 }
 
 export function useAuth() {
@@ -27,8 +27,10 @@ export function useAuth() {
 
     if (token && userData) {
       try {
-        setUser(JSON.parse(userData))
+        const parsedUser = JSON.parse(userData)
+        setUser(parsedUser)
       } catch (error) {
+        console.error('Auth parse error:', error)
         localStorage.removeItem("admin_token")
         localStorage.removeItem("admin_user")
       }
@@ -36,16 +38,34 @@ export function useAuth() {
     setLoading(false)
   }, [])
 
-  const login = async (email: string, password: string): Promise<boolean> => {
-    // Demo login - only accept owner@hoalu.vn / 123456
-    if (email === "owner@hoalu.vn" && password === "123456") {
-      const token = "demo_token_" + Date.now()
-      localStorage.setItem("admin_token", token)
-      localStorage.setItem("admin_user", JSON.stringify(DEMO_USER))
-      setUser(DEMO_USER)
-      return true
+  const login = async (usernameOrEmail: string, password: string): Promise<boolean> => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          usernameOrEmail,
+          password
+        }),
+      })
+
+      if (response.ok) {
+        const userData = await response.json()
+        
+        const token = "auth_token_" + Date.now()
+        localStorage.setItem("admin_token", token)
+        localStorage.setItem("admin_user", JSON.stringify(userData))
+        setUser(userData)
+        return true
+      } else {
+        return false
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      return false
     }
-    return false
   }
 
   const logout = () => {
@@ -54,11 +74,17 @@ export function useAuth() {
     setUser(null)
   }
 
+  const updateUser = (updatedUser: User) => {
+    localStorage.setItem("admin_user", JSON.stringify(updatedUser))
+    setUser(updatedUser)
+  }
+
   return {
     user,
     loading,
     login,
     logout,
+    updateUser,
     isAuthenticated: !!user,
   }
 }

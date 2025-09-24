@@ -1,0 +1,123 @@
+﻿[
+    {
+        "id":  "1",
+        "roomNumber":  "201",
+        "floor":  2,
+        "roomTypeId":  "1",
+        "status":  "Occupied",
+        "updatedAt":  "2025-09-12T04:54:46.402Z"
+    },
+    {
+        "id":  "2",
+        "roomNumber":  "202",
+        "floor":  2,
+        "roomTypeId":  "1",
+        "status":  "Occupied",
+        "updatedAt":  "2025-09-11T03:53:21.004Z"
+    },
+    {
+        "id":  "3",
+        "roomNumber":  "203",
+        "floor":  2,
+        "roomTypeId":  "1",
+        "status":  "Occupied",
+        "updatedAt":  "2025-09-11T07:39:31.046Z"
+    },
+    {
+        "id":  "4",
+        "roomNumber":  "204",
+        "floor":  2,
+        "roomTypeId":  "1",
+        "status":  "Occupied",
+        "updatedAt":  "2025-09-11T07:39:34.768Z"
+    },
+    {
+        "id":  "5",
+        "roomNumber":  "205",
+        "floor":  2,
+        "roomTypeId":  "1",
+        "status":  "Maintenance",
+        "updatedAt":  "2025-08-14T02:53:39.309Z"
+    },
+    {
+        "id":  "6",
+        "roomNumber":  "301",
+        "floor":  3,
+        "roomTypeId":  "2",
+        "status":  "Occupied",
+        "updatedAt":  "2025-09-11T03:53:13.580Z"
+    },
+    {
+        "id":  "7",
+        "roomNumber":  "302",
+        "floor":  3,
+        "roomTypeId":  "2",
+        "status":  "Occupied",
+        "updatedAt":  "2025-09-12T04:54:18.320Z"
+    },
+    {
+        "id":  "8",
+        "roomNumber":  "303",
+        "floor":  3,
+        "roomTypeId":  "2",
+        "status":  "Vacant",
+        "updatedAt":  "2025-08-06T04:48:03.032Z"
+    },
+    {
+        "id":  "9",
+        "roomNumber":  "304",
+        "floor":  3,
+        "roomTypeId":  "2",
+        "status":  "Vacant",
+        "updatedAt":  "2025-08-14T02:53:43.600Z"
+    },
+    {
+        "id":  "10",
+        "roomNumber":  "401",
+        "floor":  4,
+        "roomTypeId":  "3",
+        "status":  "Vacant",
+        "updatedAt":  "2025-08-06T04:48:03.032Z"
+    },
+    {
+        "id":  "11",
+        "roomNumber":  "402",
+        "floor":  4,
+        "roomTypeId":  "3",
+        "status":  "Occupied",
+        "updatedAt":  "2025-09-15T04:57:57.066Z"
+    },
+    {
+        "id":  "12",
+        "roomNumber":  "403",
+        "floor":  4,
+        "roomTypeId":  "3",
+        "status":  "Vacant",
+        "updatedAt":  "2025-08-06T04:48:03.032Z"
+    },
+    {
+        "id":  "13",
+        "roomNumber":  "501",
+        "floor":  5,
+        "roomTypeId":  "4",
+        "status":  "Vacant",
+        "updatedAt":  "2025-09-12T06:43:52.992Z"
+    },
+    {
+        "id":  "14",
+        "roomNumber":  "502",
+        "floor":  5,
+        "roomTypeId":  "4",
+        "status":  "Vacant",
+        "updatedAt":  "2025-08-06T04:48:03.032Z"
+    },
+    {
+        "id":  "18",
+        "roomNumber":  "503",
+        "floor":  5,
+        "roomTypeId":  "4",
+        "status":  "Vacant",
+        "notes":  "[\"Bathtub\",\"Soundproof\"]",
+        "updatedAt":  "2025-09-12T02:58:01.253Z"
+    }
+]

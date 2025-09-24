@@ -2,6 +2,7 @@ import {
   getRoomTypes, 
   getRoomTypeById, 
   getRoomTypeBySlug,
+  updateRoomType,
   getRooms, 
   getRoomsByType,
   getAvailableRooms,
@@ -61,6 +62,28 @@ export const roomTypesService = {
       return dbRoomType ? adaptRoomType(dbRoomType) : null
     } catch (error) {
       console.error('Error fetching room type by slug:', error)
+      return null
+    }
+  },
+
+  async update(id: string, data: Partial<RoomType>): Promise<RoomType | null> {
+    try {
+      console.log('Updating room type:', id, data)
+      // Convert RoomType data to DatabaseRoomType format
+      const dbData = {
+        name: data.name,
+        base_price: data.basePrice,
+        max_guests: data.capacity, // Map capacity to max_guests
+        size_sqm: data.sizeSqm,
+        bed_type: data.bedType,
+        description: data.shortDesc, // Map shortDesc to description
+        amenities: data.amenities,
+        images: data.images,
+      }
+      const dbRoomType = await updateRoomType(parseInt(id), dbData)
+      return dbRoomType ? adaptRoomType(dbRoomType) : null
+    } catch (error) {
+      console.error('Error updating room type:', error)
       return null
     }
   }

@@ -98,65 +98,66 @@ export const adaptReview = (dbReview: DatabaseReview) => {
 }
 
 // Helper function to map database room status to application room status
-const mapRoomStatus = (dbStatus: string): "Vacant" | "Occupied" | "Maintenance" | "Locked" => {
+const mapRoomStatus = (dbStatus: string): "Khả dụng" | "Đang sử dụng" | "Đang bảo trì" => {
   switch (dbStatus) {
     case 'available':
-      return 'Vacant'
+      return 'Khả dụng'
     case 'occupied':
-      return 'Occupied'
+      return 'Đang sử dụng'
     case 'maintenance':
-      return 'Maintenance'
+      return 'Đang bảo trì'
     case 'out_of_order':
-      return 'Locked'
+      return 'Đang bảo trì'
     default:
-      return 'Vacant'
+      return 'Khả dụng'
   }
 }
 
 // Helper function to map database booking status to application booking status
-const mapBookingStatus = (dbStatus: string): "New" | "Confirmed" | "Cancelled" | "Completed" => {
+const mapBookingStatus = (dbStatus: string): "Chờ xác nhận" | "Đã xác nhận" | "Đã nhận phòng" | "Hoàn thành" | "Đã hủy" => {
   switch (dbStatus) {
     case 'pending':
-      return 'New'
+      return 'Chờ xác nhận'
     case 'confirmed':
+      return 'Đã xác nhận'
     case 'checked_in':
-      return 'Confirmed'
-    case 'cancelled':
-      return 'Cancelled'
+      return 'Đã nhận phòng'
     case 'checked_out':
-      return 'Completed'
+      return 'Hoàn thành'
+    case 'cancelled':
+      return 'Đã hủy'
     default:
-      return 'New'
+      return 'Chờ xác nhận'
   }
 }
 
 // Helper function to map application room status to database room status
-export const mapToDatabaseRoomStatus = (status: "Vacant" | "Occupied" | "Maintenance" | "Locked"): string => {
+export const mapToDatabaseRoomStatus = (status: "Khả dụng" | "Đang sử dụng" | "Đang bảo trì"): string => {
   switch (status) {
-    case 'Vacant':
+    case 'Khả dụng':
       return 'available'
-    case 'Occupied':
+    case 'Đang sử dụng':
       return 'occupied'
-    case 'Maintenance':
+    case 'Đang bảo trì':
       return 'maintenance'
-    case 'Locked':
-      return 'out_of_order'
     default:
       return 'available'
   }
 }
 
 // Helper function to map application booking status to database booking status
-export const mapToDatabaseBookingStatus = (status: "New" | "Confirmed" | "Cancelled" | "Completed"): string => {
+export const mapToDatabaseBookingStatus = (status: "Chờ xác nhận" | "Đã xác nhận" | "Đã nhận phòng" | "Hoàn thành" | "Đã hủy"): string => {
   switch (status) {
-    case 'New':
+    case 'Chờ xác nhận':
       return 'pending'
-    case 'Confirmed':
+    case 'Đã xác nhận':
       return 'confirmed'
-    case 'Cancelled':
-      return 'cancelled'
-    case 'Completed':
+    case 'Đã nhận phòng':
+      return 'checked_in'
+    case 'Hoàn thành':
       return 'checked_out'
+    case 'Đã hủy':
+      return 'cancelled'
     default:
       return 'pending'
   }

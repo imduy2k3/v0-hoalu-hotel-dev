@@ -4,8 +4,7 @@ import { Footer } from "@/components/ui/footer"
 import { RoomGallery } from "@/components/rooms/room-gallery"
 import { RoomDetails } from "@/components/rooms/room-details"
 import { RoomBookingCard } from "@/components/rooms/room-booking-card"
-
-import { roomTypes } from "@/lib/client-data"
+import { roomTypes as fallbackRoomTypes } from "@/lib/client-data"
 
 interface RoomPageProps {
   params: {
@@ -14,9 +13,10 @@ interface RoomPageProps {
 }
 
 export default function RoomPage({ params }: RoomPageProps) {
-  const room = roomTypes.find((r) => r.slug === params.slug && r.isPublished)
+  // Use fallback data for now to avoid server component issues
+  const room = fallbackRoomTypes.find((r) => r.slug === params.slug && r.isPublished)
 
-  if (!room) {
+  if (!room || !room.isPublished) {
     notFound()
   }
 
@@ -28,7 +28,7 @@ export default function RoomPage({ params }: RoomPageProps) {
         <section className="bg-hotel-gray py-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="text-sm text-gray-600">
-              <span>Trang chủ</span> / <span>Phòng</span> / <span className="text-hotel-gold">Phòng {room.name}</span>
+              <span>Trang chủ</span> / <span>Phòng</span> / <span className="text-hotel-gold">{room.name}</span>
             </nav>
           </div>
         </section>

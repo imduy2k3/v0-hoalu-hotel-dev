@@ -1,0 +1,66 @@
+﻿[
+    {
+        "id":  "8",
+        "fullName":  "ThiÃªn HoÃ ng Minh",
+        "email":  "thminht@gmail.com",
+        "phone":  "0832321948",
+        "createdAt":  "2025-09-16T03:23:51.414Z",
+        "totalSpent":  0
+    },
+    {
+        "id":  "7",
+        "fullName":  "LÆ°Æ¡ng Duy",
+        "email":  "duy.ac.tb@gmail.com",
+        "phone":  "0984821037",
+        "createdAt":  "2025-09-11T03:11:59.651Z",
+        "totalSpent":  0
+    },
+    {
+        "id":  "6",
+        "fullName":  "Duy Luong Hoang",
+        "email":  "duy.luonghoang.work@gmail.com",
+        "phone":  "0984821037",
+        "createdAt":  "2025-09-10T07:33:39.216Z",
+        "totalSpent":  0
+    },
+    {
+        "id":  "3",
+        "fullName":  "LÃª HoÃ ng CÆ°á»ng",
+        "email":  "le.hoang.cuong@email.com",
+        "phone":  "0923456789",
+        "createdAt":  "2025-08-06T04:48:03.032Z",
+        "totalSpent":  0
+    },
+    {
+        "id":  "2",
+        "fullName":  "Tráº§n Thá» BÃ¬nh",
+        "email":  "tran.thi.binh@email.com",
+        "phone":  "0912345678",
+        "createdAt":  "2025-08-06T04:48:03.032Z",
+        "totalSpent":  0
+    },
+    {
+        "id":  "1",
+        "fullName":  "Test Updated Customer Updated",
+        "email":  "test.updated@example.com",
+        "phone":  "0987654321",
+        "createdAt":  "2025-08-06T04:48:03.032Z",
+        "totalSpent":  0
+    },
+    {
+        "id":  "4",
+        "fullName":  "Pháº¡m Thá» Dung",
+        "email":  "pham.thi.dung@email.com",
+        "phone":  "0934567890",
+        "createdAt":  "2025-08-06T04:48:03.032Z",
+        "totalSpent":  0
+    },
+    {
+        "id":  "5",
+        "fullName":  "John Smith",
+        "email":  "john.smith@email.com",
+        "phone":  "+1234567890",
+        "createdAt":  "2025-08-06T04:48:03.032Z",
+        "totalSpent":  0
+    }
+]

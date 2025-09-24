@@ -8,7 +8,7 @@ import { CheckCircle, Phone, Mail, MapPin, Calendar, Users, Home } from "lucide-
 
 export function BookingConfirmation() {
   const searchParams = useSearchParams()
-  const bookingCode = searchParams.get("code") || "HLH000000"
+  const bookingCode = searchParams.get("code") || "HLB-000000000000"
 
   return (
     <section className="py-16 lg:py-24">

@@ -14,7 +14,7 @@ import { useAuth } from "@/lib/auth"
 import { Eye, EyeOff } from "lucide-react"
 
 export default function AdminLoginPage() {
-  const [email, setEmail] = useState("")
+  const [usernameOrEmail, setUsernameOrEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -32,7 +32,7 @@ export default function AdminLoginPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    const success = await login(email, password)
+    const success = await login(usernameOrEmail, password)
 
     if (success) {
       toast({
@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
     } else {
       toast({
         title: "Đăng nhập thất bại",
-        description: "Email hoặc mật khẩu không chính xác",
+        description: "Tên đăng nhập/Email hoặc mật khẩu không chính xác",
         variant: "destructive",
       })
     }
@@ -64,13 +64,13 @@ export default function AdminLoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="usernameOrEmail">Tên đăng nhập hoặc Email</Label>
               <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="owner@hoalu.vn"
+                id="usernameOrEmail"
+                type="text"
+                value={usernameOrEmail}
+                onChange={(e) => setUsernameOrEmail(e.target.value)}
+                placeholder="admin hoặc admin@hoalucity.com"
                 required
               />
             </div>
@@ -82,7 +82,7 @@ export default function AdminLoginPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="123456"
+                  placeholder="admin123"
                   required
                 />
                 <Button
@@ -103,8 +103,11 @@ export default function AdminLoginPage() {
 
           <div className="mt-6 p-4 bg-blue-50 rounded-lg text-sm">
             <p className="font-medium text-blue-800 mb-2">Tài khoản demo:</p>
-            <p className="text-blue-700">Email: owner@hoalu.vn</p>
-            <p className="text-blue-700">Mật khẩu: 123456</p>
+            <div className="space-y-1">
+              <p className="text-blue-700"><strong>Admin:</strong> admin hoặc admin@hoalucity.com / admin123</p>
+              <p className="text-blue-700"><strong>Manager 1:</strong> manager1 hoặc manager1@hoalucity.com / manager123</p>
+              <p className="text-blue-700"><strong>Manager 2:</strong> manager2 hoặc manager2@hoalucity.com / manager123</p>
+            </div>
           </div>
         </CardContent>
       </Card>
